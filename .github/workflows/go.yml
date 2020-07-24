@@ -19,12 +19,12 @@ jobs:
             "${{ github.event.pull_request.statuses_url }}"
       if: github.event_name == 'pull_request'
     - uses: actions/checkout@v2
-      if: github.event_name == 'push'
+      if: github.event_name == 'push' && secrets.GO_TOKEN
       with:
         fetch-depth: 0
         token: '${{ secrets.GO_TOKEN }}'
     - uses: actions/checkout@v2
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' || !secrets.GO_TOKEN
       with:
         fetch-depth: 0
     - uses: actions/setup-go@v2
